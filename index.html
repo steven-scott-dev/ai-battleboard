@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Battleboard — Compare AI Models Instantly</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header>
+      <div class="badge">
+        <span class="glow-dot"></span>
+        <span>AI Battleboard • Model vs. Model</span>
+      </div>
+      <h1>AI Battleboard — Compare AI Models Instantly</h1>
+      <p class="subtitle">
+        Pick any two models, smash the button, and see who wins on price, speed, and use cases.
+      </p>
+    </header>
+
+    <section class="control-panel">
+      <div class="control-grid">
+        <div class="field-group">
+          <label for="modelA">Model A</label>
+          <div class="select-wrap">
+            <select id="modelA"></select>
+          </div>
+        </div>
+        <div class="field-group">
+          <label for="modelB">Model B</label>
+          <div class="select-wrap">
+            <select id="modelB"></select>
+          </div>
+        </div>
+        <button id="compareBtn" class="btn-primary" type="button">
+          <span class="icon">⚡</span>
+          <span>Compare Now</span>
+        </button>
+      </div>
+
+      <div class="control-footer">
+        <span class="hint">
+          Tip: start with GPT-5.1 vs Claude 3.5 or Grok vs DeepSeek.
+        </span>
+        <span class="pill">
+          <span class="pill-dot"></span>
+          <span>Client-side only • Demo pricing</span>
+        </span>
+      </div>
+    </section>
+
+    <section class="cards-layout">
+      <!-- Model A card -->
+      <article class="model-card" id="cardA">
+        <div class="card-inner">
+          <div class="card-header">
+            <div class="model-name">
+              <span id="modelAName">Model A</span>
+              <span class="model-chip">Left Side</span>
+            </div>
+            <div class="rating">
+              <span>Rating</span>
+              <span class="rating-score" id="modelARating">—</span>
+              <span>/ 10</span>
+            </div>
+          </div>
+
+          <div class="tag-row" id="modelATags"></div>
+
+          <div class="price-row">
+            <div class="price-pill">
+              <div class="pill-label">Input / 1K tokens</div>
+              <div class="pill-value" id="modelAInPrice">—</div>
+            </div>
+            <div class="price-pill">
+              <div class="pill-label">Output / 1K tokens</div>
+              <div class="pill-value" id="modelAOutPrice">—</div>
+            </div>
+            <div class="price-pill">
+              <div class="pill-label">Bundle / month</div>
+              <div class="pill-value" id="modelABundle">—</div>
+            </div>
+          </div>
+
+          <div class="meta-row">
+            <div class="meta-item">
+              <span class="meta-dot"></span>
+              <span><strong>Speed:</strong> <span id="modelASpeed">—</span></span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-dot offline-dot offline-no" id="modelAOfflineDot"></span>
+              <span><strong>Offline:</strong> <span id="modelAOffline">—</span></span>
+            </div>
+          </div>
+
+          <div class="section-title">Best use cases</div>
+          <div class="column-text" id="modelAUseCases">—</div>
+
+          <div class="section-title">Strengths</div>
+          <div class="column-text" id="modelAStrengths">—</div>
+
+          <div class="section-title">Weaknesses</div>
+          <div class="column-text" id="modelAWeaknesses">—</div>
+        </div>
+      </article>
+
+      <!-- Model B card -->
+      <article class="model-card" id="cardB">
+        <div class="card-inner">
+          <div class="card-header">
+            <div class="model-name">
+              <span id="modelBName">Model B</span>
+              <span class="model-chip">Right Side</span>
+            </div>
+            <div class="rating">
+              <span>Rating</span>
+              <span class="rating-score" id="modelBRating">—</span>
+              <span>/ 10</span>
+            </div>
+          </div>
+
+          <div class="tag-row" id="modelBTags"></div>
+
+          <div class="price-row">
+            <div class="price-pill">
+              <div class="pill-label">Input / 1K tokens</div>
+              <div class="pill-value" id="modelBInPrice">—</div>
+            </div>
+            <div class="price-pill">
+              <div class="pill-label">Output / 1K tokens</div>
+              <div class="pill-value" id="modelBOutPrice">—</div>
+            </div>
+            <div class="price-pill">
+              <div class="pill-label">Bundle / month</div>
+              <div class="pill-value" id="modelBBundle">—</div>
+            </div>
+          </div>
+
+          <div class="meta-row">
+            <div class="meta-item">
+              <span class="meta-dot"></span>
+              <span><strong>Speed:</strong> <span id="modelBSpeed">—</span></span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-dot offline-dot offline-no" id="modelBOfflineDot"></span>
+              <span><strong>Offline:</strong> <span id="modelBOffline">—</span></span>
+            </div>
+          </div>
+
+          <div class="section-title">Best use cases</div>
+          <div class="column-text" id="modelBUseCases">—</div>
+
+          <div class="section-title">Strengths</div>
+          <div class="column-text" id="modelBStrengths">—</div>
+
+          <div class="section-title">Weaknesses</div>
+          <div class="column-text" id="modelBWeaknesses">—</div>
+        </div>
+      </article>
+    </section>
+
+    <section class="bottom-area">
+      <!-- Best for you -->
+      <article class="best-for-card">
+        <div class="best-title-row">
+          <div class="best-title">Best For You (between these two)</div>
+          <span class="badge" style="margin:0; padding:2px 10px; font-size:10px;">
+            <span class="glow-dot" style="width:6px;height:6px;"></span>
+            Quick heuristics only
+          </span>
+        </div>
+        <p style="color:var(--text-muted); font-size:0.8rem;">
+          We quickly score price, speed, and niches. This is simple demo logic — not financial advice, not official pricing.
+        </p>
+        <div class="best-rows">
+          <div class="best-item">
+            <div class="best-item-label">Cheapest overall</div>
+            <div class="best-item-model" id="bestCheapest">—</div>
+            <div class="best-item-note" id="bestCheapestNote"></div>
+          </div>
+          <div class="best-item">
+            <div class="best-item-label">Fastest responses</div>
+            <div class="best-item-model" id="bestFastest">—</div>
+            <div class="best-item-note" id="bestFastestNote"></div>
+          </div>
+          <div class="best-item">
+            <div class="best-item-label">Best for coding</div>
+            <div class="best-item-model" id="bestCoding">—</div>
+            <div class="best-item-note" id="bestCodingNote"></div>
+          </div>
+          <div class="best-item">
+            <div class="best-item-label">Writing & research</div>
+            <div class="best-item-model" id="bestWritingResearch">—</div>
+            <div class="best-item-note" id="bestWritingResearchNote"></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Share -->
+      <article class="share-card">
+        <strong style="font-size:0.9rem;">Share this comparison</strong>
+        <div class="share-row">
+          <p style="flex:1; min-width:0;" class="share-status" id="shareStatus">
+            Copies a short text summary so you can paste into chat, docs, or socials.
+          </p>
+          <button id="shareBtn" class="btn-ghost" type="button">
+            <span class="icon">📋</span>
+            <span>Copy Summary</span>
+          </button>
+        </div>
+      </article>
+    </section>
+  </div>
+
+  <div class="toast" id="toast">
+    <span>✅ Copied to clipboard</span>
+  </div>
+
+  <script src="app.js" defer></script>
+
+</body>
+</html>
