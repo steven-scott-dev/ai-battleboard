@@ -892,6 +892,123 @@
   .branding-row-controls {
     grid-template-columns: 1fr;
   }
+      /* === GO PRO BANNER (DEMO) === */
+
+.go-pro-banner {
+  margin: 16px auto 10px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: radial-gradient(circle at top left, rgba(75, 231, 255, 0.18), transparent 60%),
+              radial-gradient(circle at bottom right, rgba(111, 82, 255, 0.22), transparent 55%),
+              rgba(8, 12, 22, 0.98);
+  border: 1px solid rgba(75, 231, 255, 0.45);
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.65);
+}
+
+.go-pro-left {
+  flex: 1.6;
+  min-width: 0;
+}
+
+.go-pro-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.go-pro-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(75, 231, 255, 0.7);
+  background: rgba(3, 6, 12, 0.98);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--accent, #4be7ff);
+}
+
+.go-pro-title {
+  margin: 6px 0 4px;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.go-pro-tagline {
+  margin: 0 0 6px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.go-pro-features {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.go-pro-features li {
+  margin-bottom: 2px;
+}
+
+.go-pro-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(75, 231, 255, 0.95);
+  background: linear-gradient(135deg, var(--accent, #4be7ff), #4bffa0);
+  color: #02040a;
+  font-size: 0.86rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.6);
+  transition: transform 140ms ease-out, box-shadow 140ms ease-out, filter 140ms ease-out;
+}
+
+.go-pro-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.75);
+  filter: brightness(1.03);
+}
+
+.go-pro-arrow {
+  font-size: 1rem;
+}
+
+.go-pro-note {
+  margin: 0;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-align: right;
+  max-width: 210px;
+}
+
+@media (max-width: 720px) {
+  .go-pro-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .go-pro-right {
+    align-items: flex-start;
+  }
+
+  .go-pro-note {
+    text-align: left;
+  }
+}
+
   .pricing-inputs {
     grid-template-columns: 1fr;
   }
