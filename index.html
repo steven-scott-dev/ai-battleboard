@@ -3,77 +3,62 @@
 <head>
   <meta charset="UTF-8" />
 
-  <!-- 
-    The <title> tag sets the text shown in the browser tab.
-    Keep this short but descriptive for SEO and user clarity.
-  -->
+  <!-- Browser tab title — keep it descriptive for SEO -->
   <title>AI Battleboard — Compare AI Models Instantly</title>
 
-  <!-- 
-    Ensures the layout scales properly on mobile devices.
-    Without this, mobile users would see a zoomed‑out desktop layout.
-  -->
+  <!-- Prevents mobile browsers from zooming out to fit a desktop layout -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- 
-    Links to your external stylesheet.
-    All visual styling (colors, spacing, layout) is controlled in styles.css.
-  -->
+  <!-- External stylesheet — all colors, spacing, and layout live in here -->
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
+
   <!-- 
-    app-shell = main wrapper for the entire UI.
-    Helps with consistent spacing and layout structure.
+    Main wrapper for the entire app.
+    Acts as a centering/spacing container — controlled in styles.css 
   -->
   <div class="app-shell">
 
-    <!-- ===========================
-         HEADER AREA
-         Contains title + subtitle + badge
-    ============================ -->
+    <!-- ================================
+         HEADER
+         Branding, title, and tagline
+    ================================= -->
     <header>
-      <div class="badge">
-        <!-- Glow dot is a small animated indicator for visual flair -->
-        <span class="glow-dot"></span>
 
-        <!-- Static label text -->
+      <!-- Small pill badge at the top — purely decorative branding -->
+      <div class="badge">
+        <span class="glow-dot"></span> <!-- Animated pulsing dot for visual flair -->
         <span>AI Battleboard • Model vs. Model</span>
       </div>
 
-      <!-- Main page title -->
+      <!-- Main page heading -->
       <h1>AI Battleboard — Compare AI Models Instantly</h1>
 
-      <!-- Short description under the title -->
+      <!-- Supporting tagline under the title -->
       <p class="subtitle">
         Pick any two models, smash the button, and see who wins on price, speed, and use cases.
       </p>
     </header>
 
-    <!-- ============================================================
-         GO PRO BANNER (Marketing section)
-         This is a promotional block encouraging users to upgrade.
-         You can remove this entirely if you don't want a Pro upsell.
-    ============================================================= -->
+    <!-- ================================
+         GO PRO BANNER
+         Marketing upsell section.
+         Remove this whole <section> block if you don't want the Pro pitch.
+    ================================= -->
     <section class="go-pro-banner">
 
-      <!-- Left side: text content -->
+      <!-- Left column: text content -->
       <div class="go-pro-left">
-
-        <!-- Small label above the title -->
         <div class="go-pro-label">Upgrade • Pro Version</div>
-
-        <!-- Main headline for the Pro section -->
         <h2 class="go-pro-title">Unlock AI Battleboard Pro</h2>
-
-        <!-- Short marketing tagline -->
         <p class="go-pro-tagline">
           Full model library, deep insights, favorites, pricing calculator, PDF export, and premium themes —
           designed for devs, agencies, and power users.
         </p>
 
-        <!-- Feature list -->
+        <!-- Feature bullet list for the Pro pitch -->
         <ul class="go-pro-features">
           <li>⭐ Full library: GPT, Claude, Gemini, DeepSeek, Llama, Mistral & more</li>
           <li>⚡ Animated speed bars + deep insight engine</li>
@@ -82,12 +67,12 @@
         </ul>
       </div>
 
-      <!-- Right side: button + note -->
+      <!-- Right column: CTA button + note -->
       <div class="go-pro-right">
 
         <!-- 
-          This link should point to your actual Pro purchase page.
-          Currently set to your Gumroad product.
+          ⚠️ UPDATE THIS HREF to your actual Gumroad or sales page URL.
+          The class="go-pro-btn" styles it as a button via CSS. 
         -->
         <a 
           href="https://scottify38.gumroad.com/l/kftsa?_gl=1*1fplytv*_ga*MTAxNzE3NDIwNi4xNzYxNTg1NDI1*_ga_6LJN6D94N6*czE3NjU0MDkyMjYkbzE3JGcwJHQxNzY1NDA5MjI2JGo2MCRsMCRoMA.." 
@@ -97,28 +82,25 @@
           <span class="go-pro-arrow">→</span>
         </a>
 
-        <!-- Small note under the button -->
         <p class="go-pro-note">
           One-time purchase • Lifetime updates • Client-ready reports
         </p>
       </div>
     </section>
 
-    <!-- ============================================================
+    <!-- ================================
          CONTROL PANEL
-         This is where users select Model A and Model B.
-         The JS file dynamically fills the <select> dropdowns.
-    ============================================================= -->
+         Model selection dropdowns + Compare button.
+         JS dynamically populates the <select> options from app.js.
+    ================================= -->
     <section class="control-panel">
       <div class="control-grid">
 
         <!-- Model A dropdown -->
         <div class="field-group">
           <label for="modelA">Model A</label>
-
-          <!-- Wrapper for styling the select element -->
-          <div class="select-wrap">
-            <select id="modelA"></select>
+          <div class="select-wrap"> <!-- Wrapper lets us style the select with CSS -->
+            <select id="modelA"></select> <!-- Populated by JS -->
           </div>
         </div>
 
@@ -126,24 +108,22 @@
         <div class="field-group">
           <label for="modelB">Model B</label>
           <div class="select-wrap">
-            <select id="modelB"></select>
+            <select id="modelB"></select> <!-- Populated by JS -->
           </div>
         </div>
 
-        <!-- Compare button triggers the JS logic -->
+        <!-- Triggers the comparison logic in app.js -->
         <button id="compareBtn" class="btn-primary" type="button">
           <span class="icon">⚡</span>
           <span>Compare Now</span>
         </button>
       </div>
 
-      <!-- Footer hints under the dropdowns -->
+      <!-- Helper text and disclaimer below the dropdowns -->
       <div class="control-footer">
         <span class="hint">
           Tip: start with GPT-5.1 vs Claude 3.5 or Grok vs DeepSeek.
         </span>
-
-        <!-- Small pill-style label -->
         <span class="pill">
           <span class="pill-dot"></span>
           <span>Client-side only • Demo pricing</span>
@@ -151,99 +131,84 @@
       </div>
     </section>
 
-    <!-- ============================================================
+    <!-- ================================
          MODEL CARDS
-         Two side-by-side cards showing details for Model A and B.
-         JS fills in all the values dynamically.
-    ============================================================= -->
+         Side-by-side comparison cards for Model A and B.
+         All values inside are placeholders (—) that JS fills in on compare.
+    ================================= -->
     <section class="cards-layout">
 
-      <!-- ===========================
-           MODEL A CARD
-      ============================ -->
+      <!-- MODEL A CARD -->
       <article class="model-card" id="cardA">
         <div class="card-inner">
 
-          <!-- Header: model name + rating -->
+          <!-- Card header: model name + rating score -->
           <div class="card-header">
             <div class="model-name">
-              <span id="modelAName">Model A</span>
+              <span id="modelAName">Model A</span> <!-- JS updates this -->
               <span class="model-chip">Left Side</span>
             </div>
-
             <div class="rating">
               <span>Rating</span>
-              <span class="rating-score" id="modelARating">—</span>
+              <span class="rating-score" id="modelARating">—</span> <!-- JS updates this -->
               <span>/ 10</span>
             </div>
           </div>
 
-          <!-- Tags (e.g., "GPT‑4 level", "Fast", etc.) -->
+          <!-- Tag chips like "Fast", "GPT-4 level" etc — injected by JS -->
           <div class="tag-row" id="modelATags"></div>
 
-          <!-- Pricing section -->
+          <!-- Pricing breakdown: input cost, output cost, monthly bundle -->
           <div class="price-row">
-
-            <!-- Input price -->
             <div class="price-pill">
               <div class="pill-label">Input / 1K tokens</div>
               <div class="pill-value" id="modelAInPrice">—</div>
             </div>
-
-            <!-- Output price -->
             <div class="price-pill">
               <div class="pill-label">Output / 1K tokens</div>
               <div class="pill-value" id="modelAOutPrice">—</div>
             </div>
-
-            <!-- Monthly bundle price -->
             <div class="price-pill">
               <div class="pill-label">Bundle / month</div>
               <div class="pill-value" id="modelABundle">—</div>
             </div>
           </div>
 
-          <!-- Speed + offline support -->
+          <!-- Speed and offline availability -->
           <div class="meta-row">
             <div class="meta-item">
               <span class="meta-dot"></span>
               <span><strong>Speed:</strong> <span id="modelASpeed">—</span></span>
             </div>
-
             <div class="meta-item">
-              <!-- offline-dot changes color based on JS -->
+              <!-- offline-dot class changes color via JS (offline-yes / offline-no) -->
               <span class="meta-dot offline-dot offline-no" id="modelAOfflineDot"></span>
               <span><strong>Offline:</strong> <span id="modelAOffline">—</span></span>
             </div>
           </div>
 
-          <!-- Use cases -->
+          <!-- Text sections — all filled in by JS after compare -->
           <div class="section-title">Best use cases</div>
           <div class="column-text" id="modelAUseCases">—</div>
 
-          <!-- Strengths -->
           <div class="section-title">Strengths</div>
           <div class="column-text" id="modelAStrengths">—</div>
 
-          <!-- Weaknesses -->
           <div class="section-title">Weaknesses</div>
           <div class="column-text" id="modelAWeaknesses">—</div>
+
         </div>
       </article>
 
-      <!-- ===========================
-           MODEL B CARD
-      ============================ -->
+      <!-- MODEL B CARD (mirrors Model A structure exactly) -->
       <article class="model-card" id="cardB">
         <div class="card-inner">
 
-          <!-- Header: model name + rating -->
           <div class="card-header">
             <div class="model-name">
               <span id="modelBName">Model B</span>
               <span class="model-chip">Right Side</span>
             </div>
-
             <div class="rating">
               <span>Rating</span>
               <span class="rating-score" id="modelBRating">—</span>
@@ -251,104 +216,88 @@
             </div>
           </div>
 
-          <!-- Tags -->
           <div class="tag-row" id="modelBTags"></div>
 
-          <!-- Pricing -->
           <div class="price-row">
             <div class="price-pill">
               <div class="pill-label">Input / 1K tokens</div>
               <div class="pill-value" id="modelBInPrice">—</div>
             </div>
-
             <div class="price-pill">
               <div class="pill-label">Output / 1K tokens</div>
               <div class="pill-value" id="modelBOutPrice">—</div>
             </div>
-
             <div class="price-pill">
               <div class="pill-label">Bundle / month</div>
               <div class="pill-value" id="modelBBundle">—</div>
             </div>
           </div>
 
-          <!-- Speed + offline -->
           <div class="meta-row">
             <div class="meta-item">
               <span class="meta-dot"></span>
               <span><strong>Speed:</strong> <span id="modelBSpeed">—</span></span>
             </div>
-
             <div class="meta-item">
               <span class="meta-dot offline-dot offline-no" id="modelBOfflineDot"></span>
               <span><strong>Offline:</strong> <span id="modelBOffline">—</span></span>
             </div>
           </div>
 
-          <!-- Use cases -->
           <div class="section-title">Best use cases</div>
           <div class="column-text" id="modelBUseCases">—</div>
 
-          <!-- Strengths -->
           <div class="section-title">Strengths</div>
           <div class="column-text" id="modelBStrengths">—</div>
 
-          <!-- Weaknesses -->
           <div class="section-title">Weaknesses</div>
           <div class="column-text" id="modelBWeaknesses">—</div>
+
         </div>
       </article>
     </section>
 
-    <!-- ============================================================
+    <!-- ================================
          BOTTOM AREA
-         Includes "Best For You" summary + Share button
-    ============================================================= -->
+         "Best For You" summary card + Share/copy button
+    ================================= -->
     <section class="bottom-area">
 
-      <!-- Best For You card -->
+      <!-- 
+        Best For You card — JS compares both models and fills in
+        the "winner" for each category based on simple scoring logic 
+      -->
       <article class="best-for-card">
-
         <div class="best-title-row">
           <div class="best-title">Best For You (between these two)</div>
-
-          <!-- Small badge explaining this is simple logic -->
+          <!-- Inline badge clarifying this is heuristic logic, not official data -->
           <span class="badge" style="margin:0; padding:2px 10px; font-size:10px;">
             <span class="glow-dot" style="width:6px;height:6px;"></span>
             Quick heuristics only
           </span>
         </div>
 
-        <!-- Disclaimer -->
         <p style="color:var(--text-muted); font-size:0.8rem;">
           We quickly score price, speed, and niches. This is simple demo logic — not financial advice, not official pricing.
         </p>
 
-        <!-- Rows of "best" results -->
+        <!-- Each best-item shows a category winner — JS fills in the model name and note -->
         <div class="best-rows">
-
-          <!-- Cheapest -->
           <div class="best-item">
             <div class="best-item-label">Cheapest overall</div>
             <div class="best-item-model" id="bestCheapest">—</div>
             <div class="best-item-note" id="bestCheapestNote"></div>
           </div>
-
-          <!-- Fastest -->
           <div class="best-item">
             <div class="best-item-label">Fastest responses</div>
             <div class="best-item-model" id="bestFastest">—</div>
             <div class="best-item-note" id="bestFastestNote"></div>
           </div>
-
-          <!-- Coding -->
           <div class="best-item">
             <div class="best-item-label">Best for coding</div>
             <div class="best-item-model" id="bestCoding">—</div>
             <div class="best-item-note" id="bestCodingNote"></div>
           </div>
-
-          <!-- Writing -->
           <div class="best-item">
             <div class="best-item-label">Writing & research</div>
             <div class="best-item-model" id="bestWritingResearch">—</div>
@@ -357,18 +306,14 @@
         </div>
       </article>
 
-      <!-- Share card -->
+      <!-- Share card — copies a plain-text summary to the clipboard via JS -->
       <article class="share-card">
         <strong style="font-size:0.9rem;">Share this comparison</strong>
-
         <div class="share-row">
-
-          <!-- Status text updates after copying -->
+          <!-- Status text updates to "Copied!" after the button is clicked -->
           <p style="flex:1; min-width:0;" class="share-status" id="shareStatus">
             Copies a short text summary so you can paste into chat, docs, or socials.
           </p>
-
-          <!-- Copy button triggers JS clipboard logic -->
           <button id="shareBtn" class="btn-ghost" type="button">
             <span class="icon">📋</span>
             <span>Copy Summary</span>
@@ -376,16 +321,17 @@
         </div>
       </article>
     </section>
-  </div>
 
-  <!-- Toast popup for "Copied!" message -->
+  </div><!-- end .app-shell -->
+
+  <!-- Toast notification — briefly appears after copying to clipboard -->
   <div class="toast" id="toast">
     <span>✅ Copied to clipboard</span>
   </div>
 
   <!-- 
-    Loads your JavaScript file.
-    'defer' ensures the script runs AFTER the HTML loads.
+    Loads app.js after the HTML is fully parsed (defer).
+    All the comparison logic, dropdown population, and DOM updates live in here.
   -->
   <script src="app.js" defer></script>
 
