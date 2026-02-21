@@ -1,419 +1,1152 @@
-/* 
-  ================================
-  ROOT THEME VARIABLES
-  These define your global color palette,
-  spacing, shadows, and reusable values.
-  Changing a variable here updates the
-  entire UI instantly.
-  ================================
-*/
+/* ============================================================
+   CSS CUSTOM PROPERTIES (Variables)
+   Define global design tokens here — change once, updates everywhere.
+   Access them anywhere with var(--variable-name)
+============================================================ */
 :root {
-  --bg: #0d0d0f;                 /* Main background color for the whole app */
-  --bg-card: #151518;            /* Background color for cards and panels */
-  --bg-card-light: #1b1b1f;      /* Slightly lighter card background */
-  --text: #ffffff;               /* Primary text color */
-  --text-muted: #9a9a9a;         /* Secondary text color for hints/labels */
-  --accent: #6a5acd;             /* Purple accent used for buttons + highlights */
-  --accent-glow: rgba(106, 90, 205, 0.5); /* Soft glow around accent elements */
-  --border: #2a2a2d;             /* Subtle border color for cards and dividers */
-  --radius: 12px;                /* Standard border-radius for rounded corners */
-  --shadow: 0 0 20px rgba(0,0,0,0.4); /* Soft drop shadow for depth */
-  --transition: 0.25s ease;      /* Smooth animation timing for hover/focus */
+  --bg: #05060a;                          /* Main page background */
+  --bg-alt: #0b0f16;                      /* Slightly lighter background for contrast */
+  --card-bg: #111622;                     /* Card surface color */
+  --card-bg-alt: #151b28;                 /* Alternate card surface (hover states, etc.) */
+  --accent: #4be7ff;                      /* Primary brand color — cyan/aqua */
+  --accent-soft: rgba(75, 231, 255, 0.18); /* Transparent version of accent for backgrounds */
+  --text-main: #f5f7ff;                   /* Primary text color */
+  --text-muted: #a1a7c4;                  /* Secondary/subdued text */
+  --border-subtle: #252a3b;               /* Low-contrast border for dividers */
+  --danger: #ff6b81;                      /* Red — used for "offline" indicators */
+  --success: #4bffa0;                     /* Green — used for "online/available" indicators */
+  --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.7); /* Reusable drop shadow */
+  --radius-lg: 18px;                      /* Standard card border radius */
+  --radius-xl: 26px;                      /* Larger radius for panels like control-panel */
+  --transition-fast: 180ms ease-out;      /* Quick hover transitions */
+  --transition-med: 260ms ease-out;       /* Slightly slower for card reveals, etc. */
 }
 
-/* 
-  ================================
-  GLOBAL RESET
-  Removes default browser spacing,
-  ensures consistent box sizing,
-  and sets a clean baseline.
-  ================================
-*/
+/* ============================================================
+   RESET
+   Removes default browser margins/padding and standardizes box model.
+   box-sizing: border-box means padding is included in element width.
+============================================================ */
 * {
-  margin: 0;                     /* Remove default margin */
-  padding: 0;                    /* Remove default padding */
-  box-sizing: border-box;        /* Makes width/height calculations predictable */
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-/* 
-  ================================
-  BODY STYLING
-  Sets the global font, background,
-  text color, and centers the app.
-  ================================
-*/
+/* ============================================================
+   BODY
+   Full-height dark background with a subtle radial gradient
+   that creates depth — brighter at the top, darker below.
+============================================================ */
 body {
-  font-family: system-ui, sans-serif; /* Clean, modern default font */
-  background: var(--bg);              /* Dark theme background */
-  color: var(--text);                 /* White text for contrast */
-  display: flex;                      /* Centers the app-shell horizontally */
-  justify-content: center;
-  padding: 40px 20px;                 /* Adds breathing room around the app */
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Segoe UI", sans-serif; /* Uses the OS's default system font for a native feel */
+  background: radial-gradient(circle at top, #151b28 0, #05060a 55%);
+  color: var(--text-main);
+  min-height: 100vh;  /* Always fills the full viewport height */
+  display: flex;
+  justify-content: center; /* Centers the app-shell horizontally */
+  padding: 16px;
 }
 
-/* 
-  ================================
-  APP SHELL
-  Main container that holds the entire UI.
-  Sets max width and spacing.
-  ================================
-*/
+/* ============================================================
+   APP SHELL
+   The main content wrapper. Keeps content from stretching
+   too wide on large screens.
+============================================================ */
 .app-shell {
   width: 100%;
-  max-width: 1200px;                  /* Prevents the layout from stretching too wide */
-  display: flex;
-  flex-direction: column;
-  gap: 40px;                           /* Space between major sections */
+  max-width: 1120px;
+  margin: auto;
 }
 
-/* 
-  ================================
-  HEADER AREA
-  Styles the title, subtitle, and badge.
-  ================================
-*/
+/* ============================================================
+   HEADER
+============================================================ */
 header {
-  text-align: center;                  /* Centers all header text */
-  display: flex;
-  flex-direction: column;
-  gap: 12px;                           /* Space between title, subtitle, badge */
+  text-align: center;
+  margin-bottom: 18px;
 }
 
-/* Badge at the top of the header */
+/* Small pill-shaped badge above the title */
 .badge {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  background: var(--bg-card-light);    /* Slightly lighter background */
-  padding: 6px 12px;
-  border-radius: var(--radius);
-  font-size: 0.8rem;
-  border: 1px solid var(--border);
+  gap: 8px;
+  padding: 4px 10px;
+  border-radius: 999px;        /* Fully rounded pill shape */
+  background: rgba(10, 215, 255, 0.09);
+  border: 1px solid rgba(75, 231, 255, 0.2);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  margin-bottom: 12px;
 }
 
-/* Small glowing dot inside the badge */
+/* The small pulsing dot inside the badge */
 .glow-dot {
   width: 8px;
   height: 8px;
-  border-radius: 50%;
+  border-radius: 999px;
   background: var(--accent);
-  box-shadow: 0 0 8px var(--accent-glow); /* Soft glow effect */
+  box-shadow: 0 0 12px rgba(75, 231, 255, 0.9); /* Glowing halo effect */
 }
 
-/* Main page title */
+/* Responsive title — clamp() sets min/preferred/max font size */
 h1 {
-  font-size: 2rem;
-  font-weight: 700;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  letter-spacing: 0.03em;
+  margin-bottom: 6px;
 }
 
-/* Subtitle under the main title */
 .subtitle {
-  color: var(--text-muted);
-  font-size: 1rem;
-}
-
-/* 
-  ============================================================
-  GO PRO BANNER
-  This is the large promotional section near the top of the page.
-  It uses a two-column layout: text on the left, button on the right.
-  ============================================================
-*/
-
-/* Wrapper for the entire Pro banner */
-.go-pro-banner {
-  display: flex;                        /* Places left + right sections side-by-side */
-  flex-wrap: wrap;                      /* Allows stacking on small screens */
-  gap: 30px;                            /* Space between left and right columns */
-  background: var(--bg-card-light);     /* Slightly lighter background for contrast */
-  padding: 30px;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow);
-}
-
-/* Left column: title, tagline, features */
-.go-pro-left {
-  flex: 1;                              /* Takes up available space */
-  display: flex;
-  flex-direction: column;
-  gap: 14px;                            /* Space between text elements */
-}
-
-/* Small label above the main Pro title */
-.go-pro-label {
-  font-size: 0.75rem;
-  color: var(--accent);
-  font-weight: 600;
-  letter-spacing: 0.5px;
-}
-
-/* Main Pro title */
-.go-pro-title {
-  font-size: 1.6rem;
-  font-weight: 700;
-}
-
-/* Short marketing tagline */
-.go-pro-tagline {
-  color: var(--text-muted);
   font-size: 0.9rem;
-  line-height: 1.4;
-}
-
-/* Bullet list of Pro features */
-.go-pro-features {
-  list-style: none;                     /* Removes default bullets */
-  display: flex;
-  flex-direction: column;
-  gap: 6px;                             /* Space between each bullet */
-  font-size: 0.9rem;
-}
-
-/* Right column: button + note */
-.go-pro-right {
-  width: 260px;                         /* Fixed width for consistent layout */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 12px;
-}
-
-/* Main Pro button */
-.go-pro-btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 6px;
-  background: var(--accent);
-  color: white;
-  padding: 12px 18px;
-  border-radius: var(--radius);
-  font-weight: 600;
-  text-decoration: none;                /* Removes underline */
-  transition: var(--transition);
-  border: 1px solid transparent;
-}
-
-/* Hover effect for Pro button */
-.go-pro-btn:hover {
-  background: transparent;
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-/* Small arrow inside the button */
-.go-pro-arrow {
-  font-size: 1.1rem;
-}
-
-/* Small note under the button */
-.go-pro-note {
-  font-size: 0.75rem;
   color: var(--text-muted);
-  text-align: center;
 }
 
-/* 
-  ============================================================
-  CONTROL PANEL
-  This section contains:
-  - Model A dropdown
-  - Model B dropdown
-  - Compare button
-  - Footer hints
-  ============================================================
-*/
-
-/* Outer wrapper for the whole control panel */
+/* ============================================================
+   CONTROL PANEL
+   The section with Model A/B dropdowns and Compare button.
+   Uses backdrop-filter blur for a frosted glass effect.
+============================================================ */
 .control-panel {
-  background: var(--bg-card);           /* Dark card background */
-  padding: 24px;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  gap: 20px;                            /* Space between grid + footer */
-
+  margin-top: 22px;
+  background: linear-gradient(
+    135deg,
+    rgba(21, 26, 44, 0.95),
+    rgba(9, 13, 26, 0.96)
+  );
+  border-radius: var(--radius-xl);
+  padding: 16px 14px;
+  border: 1px solid rgba(58, 70, 110, 0.8);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(22px); /* Frosted glass — blurs content behind the panel */
+}
 
 /* 
-  ============================================================
-  BOTTOM AREA
-  Contains:
-  - "Best For You" comparison summary
-  - Share card with copy-to-clipboard button
-  ============================================================
+  Mobile-first: single column by default.
+  On wider screens (600px+), switches to a 3-column grid.
 */
-
-/* Wrapper for the bottom section */
-.bottom-area {
+.control-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr;       /* Best-for-you gets more space */
-  gap: 24px;
+  grid-template-columns: 1fr;
+  gap: 10px;
 }
 
-/* ===========================
-   BEST-FOR-YOU CARD
-   =========================== */
-.best-for-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 20px;
-  box-shadow: var(--shadow);
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+@media (min-width: 600px) {
+  .control-grid {
+    grid-template-columns: 1.2fr 1.2fr auto; /* Two dropdowns + button */
+    align-items: flex-end; /* Aligns button to the bottom of the dropdowns */
+  }
 }
 
-/* Title row with badge */
-.best-title-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-/* Rows of "best" items */
-.best-rows {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-/* Each best-item row */
-.best-item {
+/* Wrapper for label + select pairs */
+.field-group {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
-/* Label (e.g., Cheapest overall) */
-.best-item-label {
-  font-size: 0.85rem;
+/* Uppercase small labels above inputs */
+label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
   color: var(--text-muted);
 }
 
-/* Model name chosen as winner */
-.best-item-model {
-  font-size: 1rem;
+/* Custom select styling — appearance:none removes the browser default arrow */
+select {
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border-subtle);
+  background: radial-gradient(circle at top left, #181d2f, #090c14);
+  color: var(--text-main);
+  font-size: 0.9rem;
+  outline: none;
+  appearance: none; /* Hides browser default dropdown arrow so we can add our own */
+  position: relative;
+}
+
+select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px rgba(75, 231, 255, 0.5); /* Subtle glow ring on focus */
+}
+
+/* Style the dropdown list items — limited browser support but worth adding */
+select option {
+  background-color: #05060a;
+  color: #f5f7ff;
+}
+
+select option:disabled {
+  color: var(--text-muted);
+}
+
+select option:checked,
+select option:hover {
+  background-color: #151b28;
+  color: #4be7ff;
+}
+
+/* Positions the custom ▾ arrow icon inside the select wrapper */
+.select-wrap {
+  position: relative;
+}
+
+.select-wrap::after {
+  content: "▾";
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%); /* Vertically centers the arrow */
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  pointer-events: none; /* Lets clicks pass through to the select underneath */
+}
+
+/* ============================================================
+   PRIMARY BUTTON (Compare Now)
+   Glowing cyan gradient button with hover lift effect.
+============================================================ */
+.btn-primary {
+  border: none;
+  padding: 11px 18px;
+  border-radius: 999px;
+  background: radial-gradient(circle at top left, #4be7ff, #1aa9c7);
+  color: #020308;       /* Dark text on light button for contrast */
   font-weight: 600;
-}
-
-/* Additional note under the model */
-.best-item-note {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
-
-
-/* ===========================
-   SHARE CARD
-   =========================== */
-.share-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 20px;
-  box-shadow: var(--shadow);
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-/* Row containing status text + button */
-.share-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-/* Status text that updates after copying */
-.share-status {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-}
-
-/* Ghost-style button */
-.btn-ghost {
-  background: transparent;
-  border: 1px solid var(--border);
-  padding: 8px 14px;
-  border-radius: var(--radius);
-  color: var(--text);
+  font-size: 0.95rem;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 6px;
-  transition: var(--transition);
+  justify-content: center;
+  gap: 8px;
+  min-width: 130px;
+  box-shadow: 0 12px 26px rgba(47, 207, 235, 0.65);
+  transition: transform var(--transition-fast),
+    box-shadow var(--transition-fast), filter var(--transition-fast);
+  white-space: nowrap; /* Prevents button text from wrapping to a second line */
 }
 
-/* Hover effect */
-.btn-ghost:hover {
-  border-color: var(--accent);
+.btn-primary span.icon {
+  font-size: 1rem;
+}
+
+/* Slight lift + brighter glow on hover */
+.btn-primary:hover {
+  transform: translateY(-1px) translateZ(0);
+  filter: brightness(1.04);
+  box-shadow: 0 16px 36px rgba(47, 207, 235, 0.9);
+}
+
+/* Pressed state — drops back down */
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 16px rgba(47, 207, 235, 0.6);
+}
+
+/* Small footer row under the dropdowns with hint text and pill label */
+.control-footer {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.hint {
+  opacity: 0.85;
+}
+
+/* Small bordered pill label */
+.pill {
+  padding: 4px 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(75, 231, 255, 0.4);
+  background: rgba(10, 16, 30, 0.9);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pill-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+/* ============================================================
+   MODEL CARDS LAYOUT
+   Two side-by-side cards on desktop, stacked on mobile.
+============================================================ */
+.cards-layout {
+  margin-top: 22px;
+  display: grid;
+  grid-template-columns: 1fr; /* Single column on mobile */
+  gap: 16px;
+}
+
+@media (min-width: 800px) {
+  .cards-layout {
+    grid-template-columns: 1fr 1fr; /* Two equal columns on desktop */
+  }
+}
+
+/* 
+  Individual model card.
+  Starts invisible (opacity: 0) and slides up on load.
+  JS adds the .show class to trigger the animation.
+*/
+.model-card {
+  border-radius: var(--radius-lg);
+  padding: 14px 14px 16px;
+  background: radial-gradient(
+      circle at top right,
+      rgba(75, 231, 255, 0.08),
+      transparent 55%
+    ),
+    linear-gradient(145deg, #101521, #0b0f18);
+  border: 1px solid rgba(32, 40, 68, 0.9);
+  box-shadow: var(--shadow-soft);
+  position: relative;
+  overflow: hidden;
+  opacity: 0;                            /* Hidden by default */
+  transform: translateY(12px);          /* Slightly below final position */
+  transition: opacity var(--transition-med), transform var(--transition-med);
+}
+
+/* JS adds this class to animate the card into view */
+.model-card.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Decorative top-left glow overlay using a pseudo-element */
+.model-card::before {
+  content: "";
+  position: absolute;
+  inset: 0; /* Stretches to fill the card */
+  pointer-events: none;
+  background: radial-gradient(
+    circle at top left,
+    rgba(75, 231, 255, 0.14),
+    transparent 55%
+  );
+  opacity: 0.65;
+  mix-blend-mode: screen; /* Blends additively with the card background */
+}
+
+/* Keeps card content above the ::before pseudo-element */
+.card-inner {
+  position: relative;
+  z-index: 1;
+}
+
+/* Top row of the card: model name on left, rating on right */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.model-name {
+  font-size: 1.15rem;
+  font-weight: 600;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+/* Small "Left Side" / "Right Side" chip next to model name */
+.model-chip {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  padding: 2px 7px 3px;
+  border-radius: 999px;
+  border: 1px solid rgba(75, 231, 255, 0.3);
+  background: rgba(14, 20, 36, 0.9);
   color: var(--accent);
 }
 
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
 
-/* 
-  ============================================================
-  TOAST NOTIFICATION
-  Small popup that appears briefly after copying text.
-  ============================================================
-*/
+/* The actual number in the rating — highlighted in accent color */
+.rating-score {
+  font-weight: 600;
+  color: var(--accent);
+}
 
+/* Row of tag chips below the card header */
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+  margin-top: 2px;
+}
+
+/* Default tag style */
+.tag {
+  font-size: 0.70rem;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: rgba(12, 18, 34, 0.9);
+  border: 1px solid rgba(82, 94, 138, 0.9);
+  color: var(--text-muted);
+}
+
+/* Accent version for featured/highlighted tags */
+.tag.highlight {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(75, 231, 255, 0.08);
+}
+
+/* 3-column grid for input price, output price, bundle */
+.price-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+/* Individual pricing box */
+.price-pill {
+  border-radius: 12px;
+  padding: 6px 8px;
+  background: rgba(9, 14, 26, 0.95);
+  border: 1px solid rgba(41, 51, 88, 0.9);
+  font-size: 0.7rem;
+}
+
+/* Small uppercase label above the price value */
+.pill-label {
+  font-size: 0.64rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.pill-value {
+  font-weight: 500;
+}
+
+/* Row showing Speed + Offline status */
+.meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  border-top: 1px dashed rgba(40, 50, 90, 0.9); /* Dashed separator line */
+  padding-top: 6px;
+  margin-top: 4px;
+}
+
+/* Each speed/offline pill */
+.meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(11, 16, 32, 0.95);
+}
+
+.meta-item strong {
+  color: var(--text-main);
+  font-weight: 500;
+}
+
+/* Colored dot indicator — defaults to accent (cyan) */
+.meta-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+/* Red dot = not available offline */
+.meta-dot.offline-no {
+  background: var(--danger);
+}
+
+/* Green dot = available offline */
+.meta-dot.offline-yes {
+  background: var(--success);
+}
+
+/* Section labels like "Best use cases", "Strengths", "Weaknesses" */
+.section-title {
+  margin-top: 10px;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--text-muted);
+}
+
+/* The text content below each section title */
+.column-text {
+  font-size: 0.86rem;
+  margin-top: 4px;
+  color: var(--text-main);
+  line-height: 1.45;
+}
+
+.column-text ul {
+  padding-left: 16px;
+}
+
+.column-text li {
+  margin-bottom: 3px;
+}
+
+/* ============================================================
+   BOTTOM AREA
+   "Best For You" summary + Share card
+   Stacks on mobile, side-by-side on desktop.
+============================================================ */
+.bottom-area {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+@media (min-width: 800px) {
+  .bottom-area {
+    grid-template-columns: 1.1fr minmax(0, 0.9fr); /* Best For You is slightly wider */
+  }
+}
+
+/* "Best For You" card */
+.best-for-card {
+  border-radius: var(--radius-lg);
+  padding: 12px 14px;
+  background: linear-gradient(135deg, #0d121e, #080b11);
+  border: 1px solid rgba(60, 74, 120, 0.95);
+  box-shadow: var(--shadow-soft);
+  font-size: 0.84rem;
+}
+
+/* Title row with the "Quick heuristics" badge on the right */
+.best-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.best-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* 2x2 grid of category winners */
+.best-rows {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+/* Individual winner box */
+.best-item {
+  background: rgba(8, 12, 22, 0.95);
+  border-radius: 12px;
+  padding: 6px 8px;
+  border: 1px solid rgba(39, 49, 82, 0.95);
+}
+
+.best-item-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+/* The winning model name — highlighted in accent */
+.best-item-model {
+  font-size: 0.86rem;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.best-item-note {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+/* Share card — has a stronger accent glow border */
+.share-card {
+  border-radius: var(--radius-lg);
+  padding: 12px 14px;
+  background: radial-gradient(
+      circle at top,
+      rgba(75, 231, 255, 0.18),
+      transparent 60%
+    ),
+    linear-gradient(145deg, #0d1320, #06070e);
+  border: 1px solid rgba(75, 231, 255, 0.6);
+  box-shadow: var(--shadow-soft);
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Row inside share card with status text + button */
+.share-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Ghost/outline style button used for the copy button */
+.btn-ghost {
+  border-radius: 999px;
+  border: 1px solid rgba(75, 231, 255, 0.7);
+  background: rgba(3, 6, 12, 0.95);
+  color: var(--accent);
+  font-size: 0.8rem;
+  padding: 6px 11px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  outline: none;
+  transition: background var(--transition-fast),
+    transform var(--transition-fast), box-shadow var(--transition-fast);
+  box-shadow: 0 8px 18px rgba(24, 180, 215, 0.5);
+  white-space: nowrap;
+}
+
+.btn-ghost span.icon {
+  font-size: 0.9rem;
+}
+
+.btn-ghost:hover {
+  background: rgba(7, 15, 26, 0.95);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(24, 180, 215, 0.8);
+}
+
+.btn-ghost:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 10px rgba(24, 180, 215, 0.6);
+}
+
+/* Status text that updates to "Copied!" after clicking */
+.share-status {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   TOAST NOTIFICATION
+   Fixed bottom-right popup that briefly appears after copying.
+   Starts hidden — JS adds .show to animate it in.
+============================================================ */
 .toast {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
-  background: var(--bg-card-light);
-  padding: 12px 18px;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow);
-  opacity: 0;                           /* Hidden by default */
-  pointer-events: none;                 /* Prevents accidental clicks */
-  transition: opacity 0.3s ease;
+  bottom: 14px;
+  right: 14px;
+  background: rgba(5, 12, 20, 0.96);
+  border-radius: 999px;
+  padding: 8px 14px;
+  border: 1px solid rgba(75, 231, 255, 0.7);
+  font-size: 0.78rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--accent);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.9);
+  opacity: 0;                         /* Hidden by default */
+  transform: translateY(10px);        /* Slightly below final position */
+  pointer-events: none;               /* Can't be clicked while hidden */
+  transition: opacity var(--transition-med), transform var(--transition-med);
+  z-index: 50; /* Floats above all other content */
 }
 
-/* JS adds this class when showing the toast */
+/* JS adds this class to slide the toast into view */
 .toast.show {
   opacity: 1;
+  transform: translateY(0);
 }
 
+/* ============================================================
+   PRO MODE EXTRA STYLES
+   These styles support features in the Pro version (favorites,
+   speed bars, insight pills, pricing calculator, branding block).
+   They're included here but unused in the free demo.
+============================================================ */
 
-/* 
-  ============================================================
-  RESPONSIVE DESIGN
-  Adjusts layout for tablets and mobile screens.
-  ============================================================
-*/
-
-/* Medium screens (tablets) */
-@media (max-width: 900px) {
-  .cards-layout {
-    grid-template-columns: 1fr;         /* Stack model cards vertically */
-  }
-
-  .bottom-area {
-    grid-template-columns: 1fr;         /* Stack best-for-you + share card */
-  }
+/* Brand row — shows provider tags + offline note */
+.brand-row {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  font-size: 0.75rem;
+  color: var(--text-muted);
 }
 
-/* Small screens (phones) */
+.brand-label {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.7rem;
+}
+
+/* Individual brand tag chip */
+.brand-tag {
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(75, 231, 255, 0.4);
+  background: rgba(8, 12, 20, 0.9);
+  color: var(--accent);
+}
+
+/* Pushed to the far right of the brand row */
+.brand-offline-note {
+  margin-left: auto;
+  opacity: 0.8;
+}
+
+/* On small screens, offline note wraps to its own full-width line */
 @media (max-width: 600px) {
-  .control-grid {
-    grid-template-columns: 1fr;         /* Stack dropdowns + button */
+  .brand-offline-note {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+/* Favorites bar — appears at the bottom of the control panel */
+.favorites-bar {
+  margin-top: 12px;
+  padding-top: 8px;
+  border-top: 1px dashed rgba(40, 50, 90, 0.9);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.favorites-label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+}
+
+.favorites-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.favorites-empty {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* Clickable saved model chip in the favorites bar */
+.favorite-chip {
+  border-radius: 999px;
+  border: 1px solid rgba(75, 231, 255, 0.45);
+  background: rgba(6, 10, 18, 0.95);
+  padding: 4px 9px;
+  font-size: 0.78rem;
+  color: var(--accent);
+  cursor: pointer;
+  transition: transform 150ms ease-out, box-shadow 150ms ease-out, background 150ms ease-out;
+}
+
+.favorite-chip:hover {
+  transform: translateY(-1px);
+  background: rgba(11, 18, 30, 0.95);
+  box-shadow: 0 8px 18px rgba(24, 180, 215, 0.5);
+}
+
+/* Right side of card header — holds rating + favorite toggle button */
+.card-header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Star/heart toggle button for saving favorites */
+.fav-toggle {
+  border-radius: 999px;
+  border: 1px solid rgba(75, 231, 255, 0.6);
+  background: rgba(5, 8, 16, 0.96);
+  color: var(--accent);
+  font-size: 0.9rem;
+  padding: 3px 8px;
+  cursor: pointer;
+  transition: background 150ms ease-out, transform 150ms ease-out, box-shadow 150ms ease-out;
+}
+
+.fav-toggle:hover {
+  background: rgba(10, 16, 30, 0.96);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 16px rgba(24, 180, 215, 0.6);
+}
+
+/* Animated speed bar — shows model speed as a filled bar */
+.speed-bar-block {
+  margin-top: 6px;
+}
+
+.speed-bar-label {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-bottom: 3px;
+}
+
+/* The track/background of the speed bar */
+.speed-bar {
+  position: relative;
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(5, 8, 16, 0.96);
+  border: 1px solid rgba(40, 50, 90, 0.9);
+  overflow: hidden;
+}
+
+/* The fill that animates from 0 to the model's speed percentage */
+.speed-bar-fill {
+  height: 100%;
+  width: 0; /* JS sets this to the actual percentage */
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--accent), #4bffa0);
+  transition: width 280ms ease-out;
+}
+
+/* Row of small insight pills (context window, params, etc.) */
+.insight-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+/* Individual insight pill */
+.insight-pill {
+  flex: 0 0 auto;
+  min-width: 90px;
+  border-radius: 12px;
+  padding: 4px 8px;
+  background: rgba(8, 12, 24, 0.95);
+  border: 1px solid rgba(50, 62, 98, 0.95);
+  font-size: 0.75rem;
+}
+
+.insight-label {
+  display: block;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color: var(--text-muted);
+}
+
+.insight-value {
+  font-size: 0.86rem;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+/* ============================================================
+   SHARE CARD ENHANCEMENTS (Pro)
+============================================================ */
+
+/* Multiple share buttons in a row */
+.share-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Secondary ghost button variant with a softer border */
+.btn-ghost.secondary {
+  border-color: rgba(180, 220, 255, 0.7);
+}
+
+/* Horizontal dashed divider inside the share card */
+.share-divider {
+  margin: 10px 0;
+  border-top: 1px dashed rgba(60, 74, 120, 0.95);
+}
+
+/* ============================================================
+   PRICING CALCULATOR (Pro)
+   Lets users estimate costs based on their token usage.
+============================================================ */
+.pricing-block {
+  margin-top: 4px;
+  font-size: 0.8rem;
+}
+
+.pricing-title {
+  font-size: 0.86rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.pricing-sub {
+  color: var(--text-muted);
+  font-size: 0.76rem;
+  margin-bottom: 6px;
+}
+
+/* Two input fields side by side */
+.pricing-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.pricing-field label {
+  display: block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.pricing-field input {
+  width: 100%;
+  padding: 5px 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(45, 56, 96, 0.95);
+  background: rgba(5, 9, 16, 0.96);
+  color: var(--text-main);
+  font-size: 0.8rem;
+}
+
+/* The calculated cost output */
+.pricing-result {
+  margin-top: 5px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   BRANDING BLOCK (Pro)
+   Lets users set a custom name and theme color.
+============================================================ */
+.branding-block {
+  margin-top: 10px;
+  font-size: 0.8rem;
+}
+
+.branding-title {
+  font-size: 0.86rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+/* Text input + color picker side by side */
+.branding-row-controls {
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.branding-field label {
+  display: block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.branding-field input,
+.branding-field select {
+  width: 100%;
+  padding: 5px 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(45, 56, 96, 0.95);
+  background: rgba(5, 9, 16, 0.96);
+  color: var(--text-main);
+  font-size: 0.8rem;
+}
+
+/* Aligns the color picker button to the bottom of the field */
+.branding-field.align-end {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.branding-note {
+  font-size: 0.73rem;
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   RESPONSIVE OVERRIDES (max-width: 700px)
+   On small screens, collapse multi-column layouts to single column.
+============================================================ */
+@media (max-width: 700px) {
+  .branding-row-controls {
+    grid-template-columns: 1fr;
   }
 
+  /* ============================================================
+     GO PRO BANNER
+     Marketing upsell block at the top of the page.
+     Remove the entire .go-pro-banner block if you don't want it.
+  ============================================================ */
   .go-pro-banner {
-    flex-direction: column;             /* Stack left + right sections */
+    margin: 16px auto 10px;
+    padding: 14px 16px;
+    border-radius: 18px;
+    background: radial-gradient(circle at top left, rgba(75, 231, 255, 0.18), transparent 60%),
+                radial-gradient(circle at bottom right, rgba(111, 82, 255, 0.22), transparent 55%),
+                rgba(8, 12, 22, 0.98);
+    border: 1px solid rgba(75, 231, 255, 0.45);
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    box-shadow: 0 14px 38px rgba(0, 0, 0, 0.65);
   }
 
+  /* Left column takes more width — has more text content */
+  .go-pro-left {
+    flex: 1.6;
+    min-width: 0; /* Prevents flex children from overflowing */
+  }
+
+  /* Right column: button + note, right-aligned on desktop */
   .go-pro-right {
-    width: 100%;                        /* Full width button */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
   }
 
-  .price-row {
-    flex-direction: column;             /* Stack price pills */
+  /* Small uppercase pill label */
+  .go-pro-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    border: 1px solid rgba(75, 231, 255, 0.7);
+    background: rgba(3, 6, 12, 0.98);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--accent, #4be7ff); /* Fallback value in case var() isn't available */
+  }
+
+  .go-pro-title {
+    margin: 6px 0 4px;
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+
+  .go-pro-tagline {
+    margin: 0 0 6px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .go-pro-features {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+
+  .go-pro-features li {
+    margin-bottom: 2px;
+  }
+
+  /* The "Go Pro" CTA button — gradient from cyan to green */
+  .go-pro-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(75, 231, 255, 0.95);
+    background: linear-gradient(135deg, var(--accent, #4be7ff), #4bffa0);
+    color: #02040a;
+    font-size: 0.86rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.6);
+    transition: transform 140ms ease-out, box-shadow 140ms ease-out, filter 140ms ease-out;
+  }
+
+  .go-pro-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.75);
+    filter: brightness(1.03);
+  }
+
+  .go-pro-arrow {
+    font-size: 1rem;
+  }
+
+  /* Note under the button — right-aligned to match button alignment */
+  .go-pro-note {
+    margin: 0;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-align: right;
+    max-width: 210px;
+  }
+
+  /* On mobile, stack the banner vertically */
+  @media (max-width: 720px) {
+    .go-pro-banner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .go-pro-right {
+      align-items: flex-start;
+    }
+
+    .go-pro-note {
+      text-align: left;
+    }
+  }
+
+  /* Stack pricing inputs on small screens */
+  .pricing-inputs {
+    grid-template-columns: 1fr;
   }
 }
