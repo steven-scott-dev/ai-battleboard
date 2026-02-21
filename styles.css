@@ -234,3 +234,186 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 20px;                            /* Space between grid + footer */
+
+
+/* 
+  ============================================================
+  BOTTOM AREA
+  Contains:
+  - "Best For You" comparison summary
+  - Share card with copy-to-clipboard button
+  ============================================================
+*/
+
+/* Wrapper for the bottom section */
+.bottom-area {
+  display: grid;
+  grid-template-columns: 2fr 1fr;       /* Best-for-you gets more space */
+  gap: 24px;
+}
+
+/* ===========================
+   BEST-FOR-YOU CARD
+   =========================== */
+.best-for-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Title row with badge */
+.best-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Rows of "best" items */
+.best-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Each best-item row */
+.best-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Label (e.g., Cheapest overall) */
+.best-item-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* Model name chosen as winner */
+.best-item-model {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Additional note under the model */
+.best-item-note {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+
+/* ===========================
+   SHARE CARD
+   =========================== */
+.share-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Row containing status text + button */
+.share-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Status text that updates after copying */
+.share-status {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* Ghost-style button */
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--border);
+  padding: 8px 14px;
+  border-radius: var(--radius);
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--transition);
+}
+
+/* Hover effect */
+.btn-ghost:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+
+/* 
+  ============================================================
+  TOAST NOTIFICATION
+  Small popup that appears briefly after copying text.
+  ============================================================
+*/
+
+.toast {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: var(--bg-card-light);
+  padding: 12px 18px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  opacity: 0;                           /* Hidden by default */
+  pointer-events: none;                 /* Prevents accidental clicks */
+  transition: opacity 0.3s ease;
+}
+
+/* JS adds this class when showing the toast */
+.toast.show {
+  opacity: 1;
+}
+
+
+/* 
+  ============================================================
+  RESPONSIVE DESIGN
+  Adjusts layout for tablets and mobile screens.
+  ============================================================
+*/
+
+/* Medium screens (tablets) */
+@media (max-width: 900px) {
+  .cards-layout {
+    grid-template-columns: 1fr;         /* Stack model cards vertically */
+  }
+
+  .bottom-area {
+    grid-template-columns: 1fr;         /* Stack best-for-you + share card */
+  }
+}
+
+/* Small screens (phones) */
+@media (max-width: 600px) {
+  .control-grid {
+    grid-template-columns: 1fr;         /* Stack dropdowns + button */
+  }
+
+  .go-pro-banner {
+    flex-direction: column;             /* Stack left + right sections */
+  }
+
+  .go-pro-right {
+    width: 100%;                        /* Full width button */
+  }
+
+  .price-row {
+    flex-direction: column;             /* Stack price pills */
+  }
+}
